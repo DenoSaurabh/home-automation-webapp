@@ -8,7 +8,7 @@ const Header = () => (
       <span role="img" aria-label="redcar">
         🏠🏡
       </span>
-      Self Driving Car Webapp Made by Saurabh
+      Home Automation and Security Webapp Made by Saurabh
       <span role="img" aria-label="redcar">
         🏡🏠
       </span>

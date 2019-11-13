@@ -12,24 +12,51 @@ import TextField from "../input/input.component";
 
 // Making Connection
 import mqtt from "mqtt";
+import axios from "axios";
 
 let connectClient = mqtt.connect("wss://test.mosquitto.org:8081");
-  
-// Subscribing for Messages
-connectClient.subscribe('videoMade');
 
-// Listening for Messages
-connectClient.on("message", (topic, message) => {
-  console.log(`Receieved a message from your Home ${topic}: ${message}`);
+// Subscribing for Messages
+connectClient.subscribe("videoMade");
+connectClient.subscribe("USDistance");
+
+// Implementing Google Assistant
+// axios
+//   .get(
+//     "https://maker.ifttt.com/trigger/Turn on the light/with/key/mn0IHXOwAEnCUQNgPRObIsYz43IuSjvaowW-4NUiLSU"
+//   )
+//   .then(() => {
+//     connectClient.publish("led", "true");
+//   });
+
+// Listening for Sonar Data
+const socket = require("socket.io-client")("http://192.168.43.29:7000");
+
+socket.on("connect", function() {
+  console.log("Connected with Sonar Node 😀");
+});
+
+socket.on("sonar_distance", distance => {
+  console.log(`Detected at sonar distance ${distance}cm`);
+
+  if (distance < 24) {
+    console.log(
+      `Anyone is your Home's Warehouse: Detected at sonar distance ${distance}cm`
+    );
+    connectClient.publish("dobuzzer");
+  }
+});
+
+socket.on("disconnect", function() {
+  console.log("Disconnected with Node 🙁😞");
 });
 
 //  This Component is a box for Control
-const HomeControlBtnBox = ({ getStatus, getMessage }) => {
-
+const HomeControlBtnBox = ({ getStatus, getMessage, getUSdistance }) => {
   // let Client;
   const [client, setClient] = useState(undefined);
 
-  const [camTime, setCamTime] = useState(30000);
+  const [camTime, setCamTime] = useState(10);
 
   //const [toogleLedSwitch, setToogleLedSwitch] = useState(true);
   //const [toogleDoor, setToogleDoor] = useState(true);
@@ -95,10 +122,9 @@ const HomeControlBtnBox = ({ getStatus, getMessage }) => {
   // Camera Message
   const sendrecordCamMessage = () => {
     console.log("Done Cam", camTime);
-    client.publish("camRecord", camTime);
+    client.publish("camRecord", camTime.toString());
     sendMessage(
-      `Sended message to your Home to record camera for ${camTime /
-        1000}s 🏡📸 `
+      `Sended message to your Home to record camera for ${camTime}s 🏡📸 `
     );
   };
 
@@ -136,7 +162,6 @@ const HomeControlBtnBox = ({ getStatus, getMessage }) => {
             onChangeHandlerFunc={handleSwitchChange("checkedLed")}
             label="Switch Home LED"
           />
-
           <Switches
             className="control-door switch"
             value={"toogleDoor"}

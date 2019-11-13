@@ -6,6 +6,7 @@ import "./App.scss";
 import Header from "./components/header/header.component";
 import MessageBox from "./components/messagebox/messagebox.xomponent";
 import HomeControlBtnBox from "./components/control-btn-box/control-btn-box.component";
+import USdistance from './components/USDistance/usdistance.component';
 
 class App extends React.Component {
   constructor() {
@@ -13,10 +14,12 @@ class App extends React.Component {
     this.state = {
       status: "disconnected",
       statusColor: "red",
-      allMessages: ['Hello, welcome to the app where you can control your Home 🏡']
+      allMessages: ['Hello, welcome to the app where you can control your Home 🏡'],
+      distance: 26.5
     };
     this.getConnectionStatus = this.getConnectionStatus.bind(this);
     this.getMessagefromMqtt = this.getMessagefromMqtt.bind(this);
+    this.getDistance = this.getDistance.bind(this);
   }
 
   getConnectionStatus(status) {
@@ -29,6 +32,10 @@ class App extends React.Component {
     } else if (status === "connected") {
       this.setState({ statusColor: "lightgreen" });
     }
+  }
+  
+  getDistance(distance) {
+    this.setState({distance})
   }
   
   getMessagefromMqtt(message) {
@@ -49,7 +56,9 @@ class App extends React.Component {
         <HomeControlBtnBox
           getStatus={this.getConnectionStatus}
           getMessage={this.getMessagefromMqtt}
+          getUSdistance={this.getDistance}
         />
+        <USdistance distance={this.state.distance} />
       </div>
     );
   }
