@@ -1,0 +1,113 @@
+.control-box {
+    background-color: cornsilk;
+    width: 400px;
+    height: 450px;
+    border-radius: 50px;
+    
+    position: absolute;
+    top: 200px;
+    right: 200px;
+
+}
+
+.car-control-btn-box {
+    
+    .btn-control {
+      height: 60px;
+      width: 60px;
+      border-radius: 10px;
+    }
+    
+    .-upleft, .-bottomright, .-left, .-upright {
+      background-color: aqua;
+    }
+    /*
+    .-upleft, .-upright {
+      margin-bottom: 10px;
+    }*/
+    
+    .-upleft {
+      position: relative;
+      top: 20px;
+      right: -150px;
+    }
+    
+    .-up {
+      position: relative;
+      top: 150px;
+      left: 80px;
+    }
+    
+    .-bottomleft {
+      position: relative;
+      top: 150px;
+    }
+    
+    .-upleft {
+      position: relative;
+      top: 220px;
+    }
+    
+    .-left {
+      position: relative;
+      top: 220px;
+      left: -75px;
+    }
+    
+    .-bottom {
+      position: relative;
+      top: 20px;
+    }
+    
+    /*
+    .-left {
+      position: relative;
+      top: 140px;
+      right: 50px;
+    }
+    
+    .-right {
+      position: relative;
+      top: 140px;
+      left: 50px; 
+    }
+    */
+    
+    .-bottom {
+      position: relative;
+      top: 215px;
+      right: 150px;
+    }
+  }
+  
+.blutooth-btn-con {
+    position: relative;
+    top: 20px;
+    background-color: green;
+}
+
+.blutooth-btn-dis {
+  position: relative;
+  top: 20px;
+}
+
+.switch {
+  transform: scale(1.5);
+}
+
+.control-led {
+  position: relative;
+  top: 70px;
+  right: 50px;
+}
+
+.control-door {
+  position: relative;
+  top: 70px;
+  right: -50px;
+}
+
+.cam-box {
+  position: relative;
+  top: 100px;
+}
