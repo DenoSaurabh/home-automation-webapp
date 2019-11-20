@@ -45,7 +45,20 @@ socket.on("sonar_distance", distance => {
     );
     connectClient.publish("dobuzzer");
   }
+  
+  
 });
+
+socket.on("IR_state", state => {
+  // console.log('reading IR State. Result: ' + state)
+  
+  if (state === 'high') {
+    console.log('Someone Entered the House! ');
+    connectClient.publish("dobuzzer");
+  } else {
+    return
+  }
+})
 
 socket.on("disconnect", function() {
   console.log("Disconnected with Node 🙁😞");
@@ -63,7 +76,8 @@ const HomeControlBtnBox = ({ getStatus, getMessage, getUSdistance }) => {
 
   const [switchState, setSwitchState] = useState({
     checkedLed: false,
-    checkedDoor: false
+    checkedDoor: false,
+    securityMode: false
   });
 
   // Function to Send data to parent Component
@@ -113,6 +127,9 @@ const HomeControlBtnBox = ({ getStatus, getMessage, getUSdistance }) => {
       } else if (name === "checkedDoor") {
         client.publish("door", switchState.checkedDoor.toString());
         sendMessage("Sending message to your Home to switch Door 🚪");
+      } else if (name === "securityMode") {
+        client.publish('secureMode', switchState.securityMode.toString());
+        sendMessage('Turing your Home settings to more Secure mode 🔐')
       }
     } else {
       sendMessage("Seems like your are not connected with your Home 🏠");
@@ -143,7 +160,7 @@ const HomeControlBtnBox = ({ getStatus, getMessage, getUSdistance }) => {
         classname="blutooth-btn-con"
         color="default"
         variant="contained"
-        value="Connect to Car"
+        value="Connect to Home"
         onClickHandler={getConnected}
       />
       <ButtonRect
@@ -193,3 +210,14 @@ const HomeControlBtnBox = ({ getStatus, getMessage, getUSdistance }) => {
 };
 
 export default HomeControlBtnBox;
+
+/*
+
+          <Switches
+            className="security-mode switch"
+            value={"securityMode"}
+            color="primary"
+            onChangeHandlerFunc={handleSwitchChange("securityMode")}
+          />
+
+*/

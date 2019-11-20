@@ -58,7 +58,6 @@ class App extends React.Component {
           getMessage={this.getMessagefromMqtt}
           getUSdistance={this.getDistance}
         />
-        <USdistance distance={this.state.distance} />
       </div>
     );
   }

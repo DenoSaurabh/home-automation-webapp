@@ -104,10 +104,18 @@
 .control-door {
   position: relative;
   top: 70px;
-  right: -50px;
+  right: -70px;
+}
+
+.security-mode {
+  position: relative;
+  top: 130px;
+  left: -80px;
+  background-color: blue;
+  border-radius: 10px;
 }
 
 .cam-box {
   position: relative;
-  top: 100px;
+  top: 170px;
 }
