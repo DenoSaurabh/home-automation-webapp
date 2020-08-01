@@ -25,6 +25,3 @@ It is something like MQTT Publisher-Subscriber Artiecture. Where the MainServer 
 Same, this the Car can send data to Web
 
 ( Actually I have not readen a lot about MQTT Protocol and Artitecture, but I have taken an Idea about That)
-
-# Wanna Contriute
-Hey, you are welcome if you wan to contribue to this Project
